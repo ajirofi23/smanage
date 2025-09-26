@@ -51,6 +51,18 @@
             color: #e65100;
         }
 
+        .login-button {
+            background-color: #364e68;
+            color: #ffffff !important; /* !important untuk override warna link */
+            padding: 0.5rem 1.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .login-button:hover {
+            background-color: #1f2937;
+            color: #ffffff !important;
+        }
+
         /* Hero Section (Bagian Utama Paling Atas) */
         .hero {
             background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1554189097-97a57a22c454?q=80&w=2070&auto=format&fit=crop');
@@ -175,6 +187,7 @@
             <a href="#commitment">Komitmen</a>
             <a href="#stats">Statistik</a>
             <a href="#">Kontak</a>
+            <a href="{{ url('/login') }}" class="login-button">Login</a>
         </div>
     </nav>
 
