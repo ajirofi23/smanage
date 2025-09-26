@@ -101,7 +101,59 @@
         .extra-links a:hover {
             text-decoration: underline;
         }
-    </style>
+        /* Animasi untuk efek fade-in */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Style untuk alert box modern */
+    .alert-modern {
+        --alert-bg: #FFF0F0;         /* Warna Latar */
+        --alert-border: #FFBABA;     /* Warna Border */
+        --alert-text: #D8000C;        /* Warna Teks & Ikon */
+        
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 12px;
+        background-color: var(--alert-bg);
+        border: 1px solid var(--alert-border);
+        color: var(--alert-text);
+        
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        
+        box-shadow: 0 4px 15px rgba(216, 0, 12, 0.1); /* Efek Shadow */
+        animation: fadeIn 0.5s ease-out; /* Terapkan Animasi */
+    }
+
+    .alert-modern .icon {
+        font-size: 1.25rem;
+        flex-shrink: 0; /* Mencegah ikon menyusut */
+        padding-top: 2px;
+    }
+
+    .alert-modern .content strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+        color: var(--alert-text);
+    }
+    
+    .alert-modern .content ul {
+        margin: 0;
+        padding-left: 1.25rem;
+        font-size: 0.9rem;
+        color: #e53e3e; /* Warna sub-teks yang sedikit lebih gelap */
+    }
+</style>
 </head>
 <body>
     
@@ -109,12 +161,28 @@
         <div class="login-logo"><span class="highlight">AICC</span> SHE</div>
         <h2>Portal Dashboard Login</h2>
 
-        <form action="#" method="POST">
-            @csrf 
+      @if ($errors->any())
+    <div class="alert-modern">
+        <div class="icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div class="content">
+            <strong>Login Gagal</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
+
+        <form action="" method="POST">
+            @csrf  
             
             <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Masukkan username Anda" required>
+                <label for="email">Email</label>
+                <input type="email" value="{{ old('email') }}" name="email" placeholder="Masukkan Email Anda" required>
             </div>
             
             <div class="input-group">
