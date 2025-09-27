@@ -14,10 +14,10 @@ Route::middleware(['guest'])->group(function() {
 });
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/panel', [PanelController::class, 'index']);
-    Route::get('/panel/manager', [PanelController::class, 'manager']);
-    Route::get('/panel/supervisor', [PanelController::class, 'supervisor']);
-    Route::get('/panel/employee', [PanelController::class, 'employee']);
+    Route::get('/panel', [PanelController::class, 'index'])->middleware('userAkses:administrator');
+    Route::get('/panel/manager', [PanelController::class, 'manager'])->middleware('userAkses:manager');
+    Route::get('/panel/supervisor', [PanelController::class, 'supervisor'])->middleware('userAkses:supervisor');
+    Route::get('/panel/employee', [PanelController::class, 'employee'])->middleware('userAkses:employee');
     Route::get('/logout', [SessionController::class, 'logout']);
 });
 

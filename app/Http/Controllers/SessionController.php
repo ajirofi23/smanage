@@ -34,7 +34,7 @@ class SessionController extends Controller
                 return redirect('/panel/supervisor');
             } else if(Auth::user()->role->name == 'employee') {
                 return redirect('/panel/employee');
-            } else {
+            } else if(Auth::user()->role->name == 'administrator') {
                 return redirect('/panel');
             }
         } else {
