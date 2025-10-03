@@ -15,6 +15,10 @@ Route::middleware(['guest'])->group(function() {
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/panel/manage', [PanelController::class, 'index'])->middleware('userAkses:administrator') ;
+    Route::get('/panel/manage/hyari-hatto', [PanelController::class, 'hyariHatto'])
+    ->middleware(['auth', 'userAkses:administrator'])
+    ->name('hyari-hatto.index');
+
     Route::get('/panel/manager', [PanelController::class, 'manager'])->middleware('userAkses:manager');
     Route::get('/panel/supervisor', [PanelController::class, 'supervisor'])->middleware('userAkses:supervisor');
     Route::get('/panel/employee', [PanelController::class, 'employee'])->middleware('userAkses:employee');

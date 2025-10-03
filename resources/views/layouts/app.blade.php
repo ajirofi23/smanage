@@ -8,41 +8,114 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 @stack('styles')
+
     <style>
         body {
             background-color: #f8f9fa;
         }
+        
         /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
             height: 100vh;
-            width: 250px;
-            background-color: #343a40;
-            padding-top: 1rem;
+            width: 260px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            padding-top: 0;
             transition: transform 0.3s ease-in-out;
             z-index: 1050;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
         }
+        
+        .sidebar-header {
+            padding: 1.5rem 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            position: relative;
+        }
+        
+        .sidebar-header h4 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sidebar-header h4 i {
+            color: #3b82f6;
+            font-size: 1.5rem;
+        }
+        
         .sidebar .nav-link {
-            color: #adb5bd;
-            font-size: 1rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
             padding: 0.75rem 1.25rem;
+            margin: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
         }
+        
         .sidebar .nav-link:hover {
             color: #ffffff;
-            background-color: #495057;
+            background-color: rgba(59, 130, 246, 0.1);
+            transform: translateX(3px);
         }
+        
         .sidebar .nav-link.active {
             color: #ffffff;
-            font-weight: bold;
+            background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
         }
-        .sidebar .nav-link .bi {
-            margin-right: 10px;
+        
+        .sidebar .nav-link i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
         }
+        
+        .sidebar .nav-link .bi-chevron-down {
+            margin-left: auto;
+            transition: transform 0.2s ease;
+            font-size: 0.8rem;
+        }
+        
+        .sidebar .nav-link[aria-expanded="true"] .bi-chevron-down {
+            transform: rotate(180deg);
+        }
+        
         .sidebar .sub-menu {
-            padding-left: 2.5rem; /* Indent sub-menu items */
-            background-color: #2c3136;
+            padding-left: 0;
+            background-color: transparent;
+        }
+        
+        .sidebar .sub-menu .nav-link {
+            padding-left: 3.25rem;
+            font-size: 0.875rem;
+            margin: 0.15rem 0.75rem;
+            position: relative;
+        }
+        
+        .sidebar .sub-menu .nav-link:before {
+            content: "•";
+            position: absolute;
+            left: 2.5rem;
+            color: #64748b;
+        }
+        
+        .sidebar hr {
+            margin: 0.75rem 1rem;
+            opacity: 0.1;
+            border-color: #fff;
         }
 
         /* Backdrop for mobile when sidebar open */
@@ -50,11 +123,12 @@
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.45);
-            z-index: 1040; /* below sidebar */
+            z-index: 1040;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s;
         }
+        
         .sidebar-backdrop.show {
             opacity: 1;
             visibility: visible;
@@ -62,7 +136,7 @@
 
         /* Default tampil di desktop */
         .main-content {
-            margin-left: 250px;
+            margin-left: 260px;
             padding: 0;
             transition: all 0.3s;
         }
@@ -70,15 +144,14 @@
         /* Responsive: sembunyikan sidebar di mobile dan atur overlay */
         @media (max-width: 768px) {
             .sidebar {
-                transform: translateX(-100%); /* sembunyi */
+                transform: translateX(-100%);
             }
             .sidebar.show {
-                transform: translateX(0); /* tampil */
+                transform: translateX(0);
             }
             .main-content {
                 margin-left: 0;
             }
-            /* ketika sidebar terbuka, hentikan scroll body */
             body.sidebar-open {
                 overflow: hidden;
             }
@@ -88,10 +161,12 @@
             background-color: #ffffff;
             border-bottom: 1px solid #dee2e6;
         }
+        
         .navbar-brand-logo {
             font-weight: bold;
             color: #0d6efd;
         }
+        
         .profile-dropdown img {
             width: 40px;
             height: 40px;
@@ -102,17 +177,19 @@
 
     <!-- Sidebar -->
     <aside class="sidebar text-white" id="sidebarMenu" aria-hidden="false">
-        <div class="p-3 mb-3 position-relative">
-            <h4 class="text-center">SHE Management</h4>
+        <div class="sidebar-header">
+            <h4>
+                <i class="bi bi-shield-shaded"></i>
+                SHE Management
+            </h4>
             <!-- Tombol close hanya terlihat di mobile -->
-            <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 d-lg-none" id="sidebarClose" aria-label="Tutup sidebar">
-                <i class="bi bi-x-lg"></i>
-            </button>
+            <button class="btn btn-sm btn-close btn-close-white position-absolute top-0 end-0 m-3 d-lg-none" id="sidebarClose" aria-label="Tutup sidebar"></button>
         </div>
-        <ul class="nav flex-column">
+        <ul class="nav flex-column py-3">
             <li class="nav-item">
-                <a class="nav-link active" href="#">
-                    <i class="bi bi-speedometer2"></i> Dashboard
+                <a class="nav-link active" href="{{ url('/panel/manage') }}">
+                    <i class="bi bi-house-door"></i>
+                    <span>Dashboard</span>
                 </a>
             </li>
             
@@ -120,23 +197,27 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#incident-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="incident-submenu">
-                    <i class="bi bi-exclamation-triangle-fill"></i> Managemen Insident
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <span>Managemen Insident</span>
+                    <i class="bi bi-chevron-down"></i>
                 </a>
                 <ul class="collapse list-unstyled sub-menu" id="incident-submenu">
-                    <li><a class="nav-link" href="#">1. Hyari Hatto</a></li>
-                    <li><a class="nav-link" href="#">2. Pelaporan Insiden</a></li>
-                    <li><a class="nav-link" href="#">3. Pelaporan Accident</a></li>
-                    <li><a class="nav-link" href="#">4. Komitmen K3</a></li>
+                    <li><a class="nav-link" href="{{ url('/panel/manage/hyari-hatto') }}"><i class="bi bi-eyeglasses"></i> Hyari Hatto</a></li>
+                    <li><a class="nav-link" href="#"><i class="bi bi-file-earmark-text"></i> Pelaporan Insiden</a></li>
+                    <li><a class="nav-link" href="#"><i class="bi bi-clipboard-x"></i> Pelaporan Accident</a></li>
+                    <li><a class="nav-link" href="#"><i class="bi bi-hand-thumbs-up"></i> Komitmen K3</a></li>
                 </ul>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="#audit-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="audit-submenu">
-                    <i class="bi bi-clipboard2-check-fill"></i> Managemen Audit
+                    <i class="bi bi-clipboard2-check"></i>
+                    <span>Managemen Audit</span>
+                    <i class="bi bi-chevron-down"></i>
                 </a>
                 <ul class="collapse list-unstyled sub-menu" id="audit-submenu">
-                    <li><a class="nav-link" href="#">1. Safety Patrol</a></li>
-                    <li><a class="nav-link" href="#">2. Safety Riding</a></li>
+                    <li><a class="nav-link" href="#"><i class="bi bi-person-walking"></i> Safety Patrol</a></li>
+                    <li><a class="nav-link" href="#"><i class="bi bi-bicycle"></i> Safety Riding</a></li>
                 </ul>
             </li>
         </ul>
@@ -171,11 +252,13 @@
                 </div>
             </div>
         </nav>
+        
         <main class="container-fluid p-4">
             {{-- Konten dinamis akan dimuat di sini --}}
-            @yield('content') 
+            @yield('content')
+        </main>
+    </div>
 
-            
 @stack('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -211,17 +294,15 @@
         backdrop.addEventListener('click', hideSidebar);
 
         // Jika klik salah satu link di sidebar pada layar kecil, tutup sidebar
-document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) {
-            // kalau link punya data-bs-toggle="collapse" → jangan tutup
-            if (!link.hasAttribute('data-bs-toggle')) {
-                hideSidebar();
-            }
-        }
-    });
-});
-
+        document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    if (!link.hasAttribute('data-bs-toggle')) {
+                        hideSidebar();
+                    }
+                }
+            });
+        });
 
         // Tutup dengan tombol ESC
         document.addEventListener('keydown', (e) => {

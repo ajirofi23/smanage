@@ -27,4 +27,9 @@ class PanelController extends Controller
         echo "<h1>". Auth::user()->name ."</h1>";
         echo "<a href='/logout'>Logout</a>";
     }
+    public function hyariHatto()
+{
+    return view('panel.manage.hyari-hatto');
+}
+
 }
