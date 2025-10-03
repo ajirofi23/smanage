@@ -187,8 +187,15 @@
             <a href="#commitment">Komitmen</a>
             <a href="#stats">Statistik</a>
             <a href="#">Kontak</a>
-            <a href="{{ url('/login') }}" class="login-button">Login</a>
-        </div>
+            @guest
+        <!-- Kalau belum login -->
+        <a href="{{ url('/login') }}" class="login-button">Login</a>
+    @endguest
+
+    @auth
+    <a href="{{ url('/logout') }}" class="login-button">Logout</a>
+@endauth
+</div>
     </nav>
 
     <header class="hero">
