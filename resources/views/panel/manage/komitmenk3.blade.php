@@ -67,7 +67,7 @@
         padding: 10px 25px;
         border-radius: 6px;
         font-weight: 500;
-        transition: transform 0.2s;
+        transition: all 0.3s;
     }
 
     .btn-primary:hover {
@@ -75,6 +75,13 @@
         box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
     }
     
+    .btn-primary:disabled {
+        background: #ced4da; /* Warna abu-abu saat nonaktif */
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
     .commitment-list {
         list-style-position: inside;
         padding-left: 0;
@@ -117,7 +124,7 @@
             <hr class="my-4">
             
             <p class="fw-bold fst-italic">
-                "Dengan ini saya menyatakan setuju untuk melaksanakan komitmen K3 sebagaimana tercantum dalam peraturan perusahaan dan saya bersedia menerima konsekuensi jika saya melanggarnya."
+                "Dengan ini saya menyatakan setuju untuk melaksanakan komitmen K3 sebagaimana tercantum dalam undang-undang perusahaan dan saya bersedia menerima konsekuensi jika saya melanggarnya."
             </p>
 
             <div class="form-check mb-3 mt-4">
@@ -127,8 +134,8 @@
                 </label>
             </div>
             
-            <button type="submit" class="btn btn-primary">
-                <i class="fa-solid fa-check-circle me-2"></i>Kirim Pernyataan
+            <button type="submit" class="btn btn-primary" id="submitBtn" disabled>
+                <i class="fa-solid fa-hourglass-start me-2"></i>Harap Baca (30s)
             </button>
         </form>
     </div>
@@ -137,11 +144,31 @@
 
 @push('scripts')
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const submitButton = document.getElementById('submitBtn');
+        let countdown = 30; // Durasi timer dalam detik
+
+        // Fungsi yang akan dijalankan setiap detik
+        const timerInterval = setInterval(function() {
+            countdown--;
+            if (countdown > 0) {
+                // Update teks tombol selama hitung mundur
+                submitButton.innerHTML = `<i class="fa-solid fa-hourglass-half me-2"></i>Harap Baca (${countdown}s)`;
+            } else {
+                // Hentikan interval saat hitungan selesai
+                clearInterval(timerInterval);
+                // Aktifkan tombol
+                submitButton.disabled = false;
+                // Ubah teks tombol ke keadaan normal
+                submitButton.innerHTML = `<i class="fa-solid fa-check-circle me-2"></i>Kirim Pernyataan`;
+            }
+        }, 1000); // Interval 1000ms = 1 detik
+    });
+
     // Submit commitment form
     document.getElementById('commitmentForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // This is a browser check, but the 'required' attribute on the checkbox is the primary validation
         if (!document.getElementById('agreementCheck').checked) {
             alert('Anda harus menyetujui pernyataan komitmen untuk melanjutkan.');
             return;
@@ -151,13 +178,10 @@
         const submitButton = this.querySelector('button[type="submit"]');
         
         console.log('Komitmen disetujui. Mengirim data...');
-        // You can use 'Object.fromEntries(formData)' to see the data being sent.
         
         // --- Simulasi AJAX submit ---
-        // Ganti bagian ini dengan endpoint Laravel Anda yang sebenarnya
         alert('Terima kasih! Pernyataan komitmen K3 Anda telah berhasil disimpan.');
         
-        // Menonaktifkan form setelah submit untuk mencegah pengiriman ganda
         document.getElementById('agreementCheck').disabled = true;
         submitButton.disabled = true;
         submitButton.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i>Tersimpan';
