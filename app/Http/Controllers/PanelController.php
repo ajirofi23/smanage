@@ -28,8 +28,21 @@ class PanelController extends Controller
         echo "<a href='/logout'>Logout</a>";
     }
     public function hyariHatto()
-{
-    return view('panel.manage.hyari-hatto');
-}
+    {
+        return view('panel.manage.hyari-hatto');
+    }
 
-}
+        public function laporInsiden()
+    {
+        return view('panel.manage.laporinsiden');       
+    }
+    public function laporAccident()
+    {
+        return view('panel.manage.laporaccident');       
+    }
+    public function komitmenK3()
+    {
+        return view('panel.manage.komitmenk3');       
+    }
+
+    }

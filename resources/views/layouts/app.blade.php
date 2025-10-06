@@ -7,7 +7,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-@stack('styles')
+
+    @stack('styles')
 
     <style>
         body {
@@ -203,9 +204,9 @@
                 </a>
                 <ul class="collapse list-unstyled sub-menu" id="incident-submenu">
                     <li><a class="nav-link" href="{{ url('/panel/manage/hyari-hatto') }}"><i class="bi bi-eyeglasses"></i> Hyari Hatto</a></li>
-                    <li><a class="nav-link" href="#"><i class="bi bi-file-earmark-text"></i> Pelaporan Insiden</a></li>
-                    <li><a class="nav-link" href="#"><i class="bi bi-clipboard-x"></i> Pelaporan Accident</a></li>
-                    <li><a class="nav-link" href="#"><i class="bi bi-hand-thumbs-up"></i> Komitmen K3</a></li>
+                    <li><a class="nav-link" href="{{ url('/panel/manage/laporinsiden') }}"><i class="bi bi-file-earmark-text"></i> Pelaporan Insiden</a></li>
+                    <li><a class="nav-link" href="{{ url('/panel/manage/laporaccident') }}"><i class="bi bi-clipboard-x"></i> Pelaporan Accident</a></li>
+                    <li><a class="nav-link" href="{{ url('/panel/manage/komitmenk3') }}"><i class="bi bi-hand-thumbs-up"></i> Komitmen K3</a></li>
                 </ul>
             </li>
 
@@ -247,7 +248,7 @@
                     <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
                         <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i> Detail Profile</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="../logout"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/logout') }}"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
                     </ul>
                 </div>
             </div>
