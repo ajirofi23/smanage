@@ -138,7 +138,7 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Section: Statistik Kunci */
+        /* Section: Statistik Kunci (UPDATED) */
         .stats-section {
             background-color: #364e68;
             color: #ffffff;
@@ -146,20 +146,37 @@
         }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr); /* Menggunakan 3 kolom */
+            gap: 1.5rem;
         }
         .stat-item {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
+            background-color: #2c3e50; /* Warna lebih gelap agar kontras */
+            padding: 1.5rem;
             border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Menata konten di dalam kartu */
+            min-height: 120px;
+        }
+        .stat-item.full-width {
+            grid-column: 1 / -1; /* Span sepanjang 3 kolom */
+        }
+        .stat-item.tall {
+             grid-row: span 2; /* Span sepanjang 2 baris */
+             justify-content: center;
         }
         .stat-item .number {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: bold;
         }
         .stat-item .label {
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem; /* Jarak antara ikon dan teks */
+            margin-top: auto; /* Mendorong label ke bawah */
         }
         
         /* Footer */
@@ -174,8 +191,15 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .features-grid { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; } /* Menjadi 2 kolom di mobile */
+            .stat-item.full-width, .stat-item.tall {
+                grid-column: 1 / -1; /* Semua item spesial menjadi full width */
+                grid-row: auto;
+            }
             .navbar { flex-direction: column; gap: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; } /* Menjadi 1 kolom di layar sangat kecil */
         }
     </style>
 </head>
@@ -188,13 +212,12 @@
             <a href="#stats">Statistik</a>
             <a href="#">Kontak</a>
             @guest
-        <!-- Kalau belum login -->
-        <a href="{{ url('/login') }}" class="login-button">Login</a>
-    @endguest
+            <a href="{{ url('/login') }}" class="login-button">Login</a>
+        @endguest
 
-    @auth
-    <a href="{{ url('/logout') }}" class="login-button">Logout</a>
-@endauth
+        @auth
+        <a href="{{ url('/logout') }}" class="login-button">Logout</a>
+    @endauth
 </div>
     </nav>
 
@@ -231,23 +254,47 @@
             <div class="container">
                 <h2 class="section-title" style="color: #ffffff;">Pencapaian Kami Sekilas</h2>
                 <p class="section-subtitle" style="color: #e0e0e0;">Data adalah bukti komitmen kami. Berikut adalah ringkasan performa SHE kami secara real-time.</p>
+                
                 <div class="stats-grid">
-                    <div class="stat-item">
+                    <div class="stat-item full-width">
                         <div class="number">2000</div>
-                        <div class="label">Total Manpower</div>
+                        <div class="label"><i class="fa-solid fa-users"></i> Total Manpower</div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="number">100%</div>
+                        <div class="label"><i class="fa-solid fa-check-circle"></i> Zero Work Accident</div>
                     </div>
                     <div class="stat-item">
                         <div class="number">100%</div>
-                        <div class="label">Zero Work Accident</div>
+                        <div class="label"><i class="fa-solid fa-check-circle"></i> Zero Fire Accident</div>
+                    </div>
+                    <div class="stat-item tall">
+                        <div class="number">&nbsp;</div>
+                        <div class="label"><i class="fa-solid fa-magnifying-glass"></i> Safety Patrol Finding</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                         <div class="number">100%</div>
+                        <div class="label"><i class="fa-solid fa-check-circle"></i> Zero Forklift</div>
+                    </div>
+                     <div class="stat-item">
+                         <div class="number">100%</div>
+                        <div class="label"><i class="fa-solid fa-check-circle"></i> Zero Traffic Accident</div>
+                    </div>
+
+                    <div class="stat-item">
+                         <div class="number">&nbsp;</div>
+                        <div class="label"><i class="fa-solid fa-award"></i> Komitmen K3</div>
                     </div>
                     <div class="stat-item">
-                        <div class="number">100%</div>
-                        <div class="label">Zero Fire Accident</div>
+                         <div class="number">&nbsp;</div>
+                        <div class="label"><i class="fa-solid fa-lightbulb"></i> Hiyari Hatto</div>
                     </div>
                     <div class="stat-item">
-                        <div class="number">100%</div>
-                        <div class="label">Safety Finding</div>
-                    </div>
+                        <div class="number">&nbsp;</div>
+                       <div class="label"><i class="fa-solid fa-motorcycle"></i> Safety Riding Finding</div>
+                   </div>
                 </div>
             </div>
         </section>

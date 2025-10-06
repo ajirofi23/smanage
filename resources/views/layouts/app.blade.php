@@ -217,8 +217,8 @@
                     <i class="bi bi-chevron-down"></i>
                 </a>
                 <ul class="collapse list-unstyled sub-menu" id="audit-submenu">
-                    <li><a class="nav-link" href="#"><i class="bi bi-person-walking"></i> Safety Patrol</a></li>
-                    <li><a class="nav-link" href="#"><i class="bi bi-bicycle"></i> Safety Riding</a></li>
+                    <li><a class="nav-link" href="{{ url('/panel/manage/safetypatrol') }}"><i class="bi bi-person-walking"></i> Safety Patrol</a></li>
+                    <li><a class="nav-link" href="{{ url('/panel/manage/safetyriding') }}"><i class="bi bi-bicycle"></i> Safety Riding</a></li>
                 </ul>
             </li>
         </ul>

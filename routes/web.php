@@ -27,6 +27,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/panel/manage/komitmenk3', [PanelController::class, 'komitmenK3'])
     ->middleware(['auth', 'userAkses:administrator'])
     ->name('komitmenk3.index');
+    Route::get('/panel/manage/safetypatrol', [PanelController::class, 'safetyPatrol'])
+    ->middleware(['auth', 'userAkses:administrator'])
+    ->name('safetypatrol.index');
+    Route::get('/panel/manage/safetyriding', [PanelController::class, 'safetyRiding'])
+    ->middleware(['auth', 'userAkses:administrator'])
+    ->name('safetyriding.index');
 
     Route::get('/panel/manager', [PanelController::class, 'manager'])->middleware('userAkses:manager');
     Route::get('/panel/supervisor', [PanelController::class, 'supervisor'])->middleware('userAkses:supervisor');

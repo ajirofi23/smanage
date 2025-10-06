@@ -44,5 +44,13 @@ class PanelController extends Controller
     {
         return view('panel.manage.komitmenk3');       
     }
+    public function safetyPatrol()
+    {
+        return view('panel.manage.safetypatrol');       
+    }
+     public function safetyRiding()
+    {
+        return view('panel.manage.safetyriding');       
+    }
 
     }
