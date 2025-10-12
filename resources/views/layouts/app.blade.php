@@ -271,8 +271,7 @@
                             <strong>{{ Auth::user()->name }}</strong>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i> Detail Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.show') }}"><i class="bi bi-person-circle me-2"></i> Detail Profile</a></li>                     <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ url('/logout') }}"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
                         </ul>
                     </div>

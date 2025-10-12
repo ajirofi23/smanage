@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\PanelController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,7 @@ Route::middleware(['guest'])->group(function() {
 });
 
 Route::middleware(['auth'])->group(function() {
+ Route::get('/panel/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/panel/manage', [PanelController::class, 'index'])->middleware('userAkses:administrator') ;
     Route::get('/panel/manage/hyari-hatto', [PanelController::class, 'hyariHatto'])
     ->middleware(['auth', 'userAkses:administrator'])
@@ -74,5 +76,4 @@ Route::middleware(['auth', 'userAkses:administrator'])
     Route::get('/logout', [SessionController::class, 'logout']);
 });
 
-
-
+ 
