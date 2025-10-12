@@ -270,7 +270,7 @@
                         <div class="label"><i class="fa-solid fa-check-circle"></i> Zero Fire Accident</div>
                     </div>
                     <div class="stat-item tall">
-                        <div class="number">&nbsp;</div>
+                        <div class="number"></div>
                         <div class="label"><i class="fa-solid fa-magnifying-glass"></i> Safety Patrol Finding</div>
                     </div>
                     
@@ -284,15 +284,15 @@
                     </div>
 
                     <div class="stat-item">
-                         <div class="number">&nbsp;</div>
+                         <div class="number">100%</div>
                         <div class="label"><i class="fa-solid fa-award"></i> Komitmen K3</div>
                     </div>
                     <div class="stat-item">
-                         <div class="number">&nbsp;</div>
+                         <div class="number">100%</div>
                         <div class="label"><i class="fa-solid fa-lightbulb"></i> Hiyari Hatto</div>
                     </div>
                     <div class="stat-item">
-                        <div class="number">&nbsp;</div>
+                        <div class="number">2</div>
                        <div class="label"><i class="fa-solid fa-motorcycle"></i> Safety Riding Finding</div>
                    </div>
                 </div>

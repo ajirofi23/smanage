@@ -33,6 +33,40 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/panel/manage/safetyriding', [PanelController::class, 'safetyRiding'])
     ->middleware(['auth', 'userAkses:administrator'])
     ->name('safetyriding.index');
+    
+// Perilaku Tidak Aman
+Route::middleware(['auth', 'userAkses:administrator'])
+    ->prefix('panel/manage/perilakutidakaman')
+    ->group(function () {
+        Route::get('/', [PanelController::class, 'perilakuTidakAman'])->name('perilakutidakaman.index');
+        Route::get('/data', [PanelController::class, 'getPerilakuTidakAman']);
+        Route::post('/store', [PanelController::class, 'storePerilakuTidakAman']);
+        Route::get('/show/{id}', [PanelController::class, 'showPerilakuTidakAman']);
+        Route::delete('/delete/{id}', [PanelController::class, 'deletePerilakuTidakAman']);
+    });
+
+// Kondisi Tidak Aman
+Route::middleware(['auth', 'userAkses:administrator'])
+    ->prefix('panel/manage/kondisitidakaman')
+    ->group(function () {
+        Route::get('/', [PanelController::class, 'kondisiTidakAman'])->name('kondisitidakaman.index');
+        Route::get('/data', [PanelController::class, 'dataKondisiTidakAman']);
+        Route::post('/store', [PanelController::class, 'storeKondisiTidakAman']);
+        Route::get('/show/{id}', [PanelController::class, 'showKondisiTidakAman']);
+        Route::delete('/delete/{id}', [PanelController::class, 'deleteKondisiTidakAman']);
+    });
+
+// Potensi Bahaya
+Route::middleware(['auth', 'userAkses:administrator'])
+    ->prefix('panel/manage/potensibahaya')
+    ->group(function () {
+        Route::get('/', [PanelController::class, 'potensiBahaya'])->name('potensibahaya.index');
+        Route::get('/data', [PanelController::class, 'dataPotensiBahaya']);
+        Route::post('/store', [PanelController::class, 'storePotensiBahaya']);
+        Route::get('/show/{id}', [PanelController::class, 'showPotensiBahaya']);
+        Route::delete('/delete/{id}', [PanelController::class, 'deletePotensiBahaya']);
+    });
+
 
     Route::get('/panel/manager', [PanelController::class, 'manager'])->middleware('userAkses:manager');
     Route::get('/panel/supervisor', [PanelController::class, 'supervisor'])->middleware('userAkses:supervisor');

@@ -5,364 +5,172 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
-    .main-content main {
-        padding: 20px !important;
-        background-color: #f8f9fa;
-        min-height: calc(100vh - 72px);
+    /* Modern Blue and White Theme */
+    :root {
+        --primary-blue: #007bff;
+        --primary-blue-darker: #0056b3;
     }
 
-    .page-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 25px;
-        border-radius: 10px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    .main-content main { padding: 20px !important; background-color: #f8f9fa; min-height: calc(100vh - 72px); }
+    
+    /* Updated Page Header */
+    .page-header { 
+        background-color: var(--primary-blue); 
+        color: white; 
+        padding: 25px; 
+        border-radius: 10px; 
+        margin-bottom: 25px; 
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
     }
+    .page-header h2 { margin: 0; font-weight: 600; display: flex; align-items: center; gap: 12px; }
+    .page-header p { margin: 5px 0 0 0; opacity: 0.9; }
 
-    .page-header h2 {
-        margin: 0;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+    .form-card { background: white; border-radius: 10px; padding: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); margin-bottom: 25px; }
+    .form-card h5 { color: #333; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 10px; }
+    
+    .form-label { font-weight: 500; color: #495057; margin-bottom: 8px; }
+    .form-control, .form-select { border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; transition: all 0.3s; }
+    .form-control:focus, .form-select:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+    
+    /* Updated Button */
+    .btn-primary { 
+        background-color: var(--primary-blue); 
+        border: none; 
+        padding: 10px 25px; 
+        border-radius: 6px; 
+        font-weight: 500; 
+        transition: all 0.3s; 
     }
-
-    .page-header p {
-        margin: 5px 0 0 0;
-        opacity: 0.9;
+    .btn-primary:hover { 
+        background-color: var(--primary-blue-darker);
+        transform: translateY(-2px); 
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); 
     }
-
-    /* Form Card */
-    .form-card {
-        background: white;
-        border-radius: 10px;
-        padding: 25px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-        margin-bottom: 25px;
+    
+    .table-card { background: white; border-radius: 10px; padding: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+    .table-card h5 { color: #333; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 10px; }
+    
+    /* Updated Table Header */
+    .table thead { 
+        background-color: var(--primary-blue); 
+        color: white; 
     }
-
-    .form-card h5 {
-        color: #333;
-        font-weight: 600;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #667eea;
-    }
-
-    .form-label {
-        font-weight: 500;
-        color: #495057;
-        margin-bottom: 8px;
-    }
-
-    .form-control, .form-select {
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        padding: 10px 12px;
-        transition: all 0.3s;
-    }
-
-    .form-control:focus, .form-select:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
-        padding: 10px 25px;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: transform 0.2s;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
-    }
-
-    /* Table Card */
-    .table-card {
-        background: white;
-        border-radius: 10px;
-        padding: 25px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    }
-
-    .table-card h5 {
-        color: #333;
-        font-weight: 600;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #667eea;
-    }
-
-    .table {
-        margin: 0;
-    }
-
-    .table thead {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-
-    .table thead th {
-        border: none;
-        font-weight: 500;
-        padding: 12px;
-        vertical-align: middle;
-    }
-
-    .table tbody td {
-        vertical-align: middle;
-        padding: 12px;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f8f9fa;
-    }
-
-    .badge {
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-weight: 500;
-    }
-
-    .btn-action {
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 0.875rem;
-        margin: 0 2px;
-        transition: all 0.2s;
-    }
-
-    .btn-edit {
-        background-color: #ffc107;
-        color: #000;
-        border: none;
-    }
-
-    .btn-edit:hover {
-        background-color: #ffb300;
-        transform: translateY(-2px);
-    }
-
-    .btn-delete {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-    }
-
-    .btn-delete:hover {
-        background-color: #c82333;
-        transform: translateY(-2px);
-    }
-
-    .btn-view {
-        background-color: #17a2b8;
-        color: white;
-        border: none;
-    }
-
-    .btn-view:hover {
-        background-color: #138496;
-        transform: translateY(-2px);
-    }
-
-    .image-preview {
-        max-width: 80px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
-
-    .image-preview:hover {
-        transform: scale(1.1);
-    }
-
-    /* File Upload Custom */
-    .custom-file-upload {
-        border: 2px dashed #ddd;
-        border-radius: 6px;
-        padding: 20px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .custom-file-upload:hover {
-        border-color: #667eea;
-        background-color: #f8f9fa;
-    }
-
-    .custom-file-upload i {
-        font-size: 2rem;
-        color: #667eea;
-        margin-bottom: 10px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .table-responsive {
-            font-size: 0.875rem;
-        }
-        
-        .btn-action {
-            padding: 4px 8px;
-            font-size: 0.75rem;
-        }
-    }
+    .table thead th { border: none; font-weight: 500; padding: 12px; vertical-align: middle; }
+    .table tbody td { vertical-align: middle; padding: 12px; }
+    .table tbody tr:hover { background-color: #f8f9fa; }
+    
+    .btn-action { padding: 6px 12px; border-radius: 6px; font-size: 0.875rem; margin: 0 2px; transition: all 0.2s; }
+    .btn-edit { background-color: #ffc107; color: #000; border: none; }
+    .btn-delete { background-color: #dc3545; color: white; border: none; }
+    .btn-view { background-color: #17a2b8; color: white; border: none; }
+    
+    .image-preview { max-width: 80px; height: 60px; object-fit: cover; border-radius: 6px; cursor: pointer; transition: transform 0.2s; }
+    .image-preview:hover { transform: scale(1.1); }
+    
+    .custom-file-upload { border: 2px dashed #ddd; border-radius: 6px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s; }
+    .custom-file-upload:hover { border-color: var(--primary-blue); background-color: #f8f9fa; }
+    .custom-file-upload i { font-size: 2rem; color: var(--primary-blue); margin-bottom: 10px; }
 </style>
 @endpush
 
 @section('content')
 <div class="container-fluid">
-    <!-- Page Header -->
     <div class="page-header">
-        <h2>
-            <i class="fa-solid fa-eye"></i>
-            Hyari Hatto
-        </h2>
-        <p>Pengelolaan data pelaporan Hyari Hatto (Near Miss)</p>
+        <h2><i class="fa-solid fa-file-lines me-2"></i>Form Laporan Hyari Hatto</h2>
+        <p>Formulir pelaporan temuan Hyari Hatto (Near Miss)</p>
     </div>
 
-    <!-- Form Input -->
     <div class="form-card">
-        <h5><i class="fa-solid fa-plus-circle me-2"></i>Form Input Hyari Hatto</h5>
+        <h5>I. Kondisi Temuan</h5>
         <form id="hyariForm" enctype="multipart/form-data">
             @csrf
             <input type="hidden" id="edit_id" name="id">
-            
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="tanggal" class="form-label">
-                        <i class="fa-solid fa-calendar me-1"></i>Tanggal
-                    </label>
-                    <input type="date" class="form-control" id="tanggal" name="tanggal" required>
-                </div>
 
-                <div class="col-md-6 mb-3">
-                    <label for="jam" class="form-label">
-                        <i class="fa-solid fa-clock me-1"></i>Jam
-                    </label>
-                    <input type="time" class="form-control" id="jam" name="jam" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>A. Perilaku Tidak Aman</h6>
+                    @foreach($perilaku_tidak_aman as $item)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="perilaku[]" value="{{ $item->id }}" id="perilaku{{ $item->id }}">
+                            <label class="form-check-label" for="perilaku{{ $item->id }}">{{ $item->nama_perilaku }}</label>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="col-md-6">
+                    <h6>B. Kondisi Tidak Aman</h6>
+                    @foreach($kondisi_tidak_aman as $item)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="kondisi[]" value="{{ $item->id }}" id="kondisi{{ $item->id }}">
+                            <label class="form-check-label" for="kondisi{{ $item->id }}">{{ $item->nama_kondisi }}</label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="lokasi" class="form-label">
-                        <i class="fa-solid fa-location-dot me-1"></i>Lokasi
-                    </label>
-                    <input type="text" class="form-control" id="lokasi" name="lokasi" placeholder="Masukkan lokasi kejadian" required>
-                </div>
+            <hr>
 
-                <div class="col-md-6 mb-3">
-                    <label for="koordinat" class="form-label">
-                        <i class="fa-solid fa-map-marker-alt me-1"></i>Koordinat
-                    </label>
-                    <input type="text" class="form-control" id="koordinat" name="koordinat" placeholder="Contoh: -6.200000, 106.816666" required>
-                </div>
+            <h5>II. Potensi Bahaya</h5>
+            <div class="row">
+                @foreach($potensi_bahaya as $item)
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="potensi[]" value="{{ $item->id }}" id="potensi{{ $item->id }}">
+                            <label class="form-check-label" for="potensi{{ $item->id }}">{{ $item->nama_potensi }}</label>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <hr>
+
+            <h5>III. Deskripsi Temuan</h5>
+            <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" required></textarea>
             </div>
 
             <div class="mb-3">
-                <label for="kronologi" class="form-label">
-                    <i class="fa-solid fa-file-lines me-1"></i>Kronologi
-                </label>
-                <textarea class="form-control" id="kronologi" name="kronologi" rows="4" placeholder="Jelaskan kronologi kejadian secara detail..." required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">
-                    <i class="fa-solid fa-camera me-1"></i>Bukti Foto / Video
-                </label>
+                <label class="form-label">Upload Bukti Gambar</label>
                 <div class="custom-file-upload" onclick="document.getElementById('bukti').click()">
                     <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <p class="mb-0">Klik untuk upload foto atau video</p>
-                    <small class="text-muted">Format: JPG, PNG, MP4 (Max: 10MB)</small>
+                    <p class="mb-0">Klik untuk upload gambar</p>
+                    <small class="text-muted">Format: JPG, PNG (Max: 10MB)</small>
                 </div>
-                <input type="file" class="form-control d-none" id="bukti" name="bukti" accept="image/*,video/*">
+                <input type="file" class="form-control d-none" id="bukti" name="bukti" accept="image/*">
                 <div id="filePreview" class="mt-2"></div>
             </div>
 
+            <hr>
+
+            <h5>IV. Usulan</h5>
+            <div class="mb-3">
+                <textarea class="form-control" name="usulan" rows="3" placeholder="Masukkan usulan perbaikan..." required></textarea>
+            </div>
+
             <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa-solid fa-save me-2"></i>Simpan Data
-                </button>
-                <button type="button" class="btn btn-secondary" onclick="resetForm()">
-                    <i class="fa-solid fa-rotate-left me-2"></i>Reset
-                </button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save me-2"></i>Simpan Data</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()"><i class="fa-solid fa-rotate-left me-2"></i>Reset</button>
             </div>
         </form>
     </div>
 
-    <!-- Data Table -->
     <div class="table-card">
-        <h5><i class="fa-solid fa-table me-2"></i>Data Hyari Hatto</h5>
+        <h5>Data Laporan Hyari Hatto</h5>
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th width="5%">No</th>
-                        <th width="10%">Tanggal</th>
-                        <th width="8%">Jam</th>
-                        <th width="15%">Lokasi</th>
-                        <th width="12%">Koordinat</th>
-                        <th width="25%">Kronologi</th>
-                        <th width="10%">Bukti</th>
-                        <th width="15%">Aksi</th>
+                        <th>No</th>
+                        <th>Kondisi Temuan</th>
+                        <th>Potensi Bahaya</th>
+                        <th>Deskripsi</th>
+                        <th>Bukti</th>
+                        <th>Usulan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="dataTable">
-                    <!-- Data akan dimuat di sini -->
-                    <tr>
-                        <td>1</td>
-                        <td>2025-01-15</td>
-                        <td>14:30</td>
-                        <td>Area Produksi A</td>
-                        <td>-6.200000, 106.816666</td>
-                        <td>Tergelincir di lantai basah...</td>
-                        <td>
-                            <img src="https://via.placeholder.com/80x60" class="image-preview" alt="Bukti" onclick="viewImage(this.src)">
-                        </td>
-                        <td>
-                            <button class="btn btn-action btn-view" onclick="viewDetail(1)" title="Lihat Detail">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="btn btn-action btn-edit" onclick="editData(1)" title="Edit">
-                                <i class="fa-solid fa-pen"></i>
-                            </button>
-                            <button class="btn btn-action btn-delete" onclick="deleteData(1)" title="Hapus">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>2025-01-14</td>
-                        <td>09:15</td>
-                        <td>Warehouse B</td>
-                        <td>-6.201234, 106.817890</td>
-                        <td>Barang hampir terjatuh dari rak...</td>
-                        <td>
-                            <img src="https://via.placeholder.com/80x60" class="image-preview" alt="Bukti" onclick="viewImage(this.src)">
-                        </td>
-                        <td>
-                            <button class="btn btn-action btn-view" onclick="viewDetail(2)" title="Lihat Detail">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="btn btn-action btn-edit" onclick="editData(2)" title="Edit">
-                                <i class="fa-solid fa-pen"></i>
-                            </button>
-                            <button class="btn btn-action btn-delete" onclick="deleteData(2)" title="Hapus">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+                    </tbody>
             </table>
         </div>
     </div>
@@ -371,109 +179,24 @@
 
 @push('scripts')
 <script>
-    // Preview file upload
-    document.getElementById('bukti').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        const preview = document.getElementById('filePreview');
-        
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                if (file.type.startsWith('image/')) {
-                    preview.innerHTML = `<img src="${e.target.result}" class="img-thumbnail" style="max-width: 200px;">`;
-                } else if (file.type.startsWith('video/')) {
-                    preview.innerHTML = `<video controls class="img-thumbnail" style="max-width: 300px;">
-                        <source src="${e.target.result}" type="${file.type}">
-                    </video>`;
-                }
-            }
-            reader.readAsDataURL(file);
+document.getElementById('bukti').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const preview = document.getElementById('filePreview');
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            preview.innerHTML = `<img src="${e.target.result}" class="img-thumbnail" style="max-width:200px;">`;
         }
-    });
-
-    // Submit form
-    document.getElementById('hyariForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        
-        // Simulasi AJAX submit (ganti dengan endpoint Laravel Anda)
-        console.log('Data yang akan dikirim:', Object.fromEntries(formData));
-        
-        alert('Data berhasil disimpan!');
-        resetForm();
-        
-        // TODO: Implementasi AJAX ke backend Laravel
-        // fetch('/api/hyari-hatto', {
-        //     method: 'POST',
-        //     body: formData
-        // }).then(response => response.json())
-        // .then(data => {
-        //     alert('Data berhasil disimpan!');
-        //     resetForm();
-        //     loadData();
-        // });
-    });
-
-    // Reset form
-    function resetForm() {
-        document.getElementById('hyariForm').reset();
-        document.getElementById('edit_id').value = '';
-        document.getElementById('filePreview').innerHTML = '';
+        reader.readAsDataURL(file);
     }
+});
 
-    // Edit data
-    function editData(id) {
-        // TODO: Load data dari backend dan isi form
-        alert('Edit data ID: ' + id);
-        
-        // Contoh populate form
-        document.getElementById('edit_id').value = id;
-        document.getElementById('tanggal').value = '2025-01-15';
-        document.getElementById('jam').value = '14:30';
-        document.getElementById('lokasi').value = 'Area Produksi A';
-        document.getElementById('koordinat').value = '-6.200000, 106.816666';
-        document.getElementById('kronologi').value = 'Tergelincir di lantai basah...';
-        
-        // Scroll ke form
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+function resetForm(){
+    document.getElementById('hyariForm').reset();
+    document.getElementById('edit_id').value='';
+    document.getElementById('filePreview').innerHTML='';
+}
 
-    // Delete data
-    function deleteData(id) {
-        if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-            // TODO: Kirim request delete ke backend
-            alert('Data ID ' + id + ' berhasil dihapus!');
-            
-            // fetch('/api/hyari-hatto/' + id, {
-            //     method: 'DELETE'
-            // }).then(response => {
-            //     alert('Data berhasil dihapus!');
-            //     loadData();
-            // });
-        }
-    }
-
-    // View detail
-    function viewDetail(id) {
-        alert('Lihat detail data ID: ' + id);
-        // TODO: Buka modal atau redirect ke halaman detail
-    }
-
-    // View image in modal
-    function viewImage(src) {
-        // TODO: Implementasi modal untuk view image
-        window.open(src, '_blank');
-    }
-
-    // Load data from backend
-    function loadData() {
-        // TODO: Load data dari backend Laravel
-        // fetch('/api/hyari-hatto')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         // Render data ke tabel
-        //     });
-    }
+// TODO: Submit, Edit, Delete logic via AJAX
 </script>
 @endpush
