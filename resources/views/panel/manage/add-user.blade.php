@@ -404,7 +404,6 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 <script>
@@ -553,17 +552,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         <input id="swal-email" class="form-control" type="email" placeholder="Email" value="${email}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="swal-password" class="form-label">
-                            <i class="fa-solid fa-lock"></i> Password (Kosongkan jika tidak ingin mengubah)
-                        </label>
-                        <input id="swal-password" class="form-control" type="password" placeholder="Minimal 8 karakter, huruf besar, kecil, angka, simbol">
-                        <ul class="password-requirements" id="password-requirements-edit">
-                            <li id="length-edit" class="invalid">At least 8 characters long</li>
-                            <li id="uppercase-edit" class="invalid">At least one uppercase letter</li>
-                            <li id="lowercase-edit" class="invalid">At least one lowercase letter</li>
-                            <li id="number-edit" class="invalid">At least one number</li>
-                            <li id="special-edit" class="invalid">At least one special character from !@#$%^&*</li>
-                        </ul>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="reset-password">
+                            <label class="form-check-label" for="reset-password">
+                                <i class="fa-solid fa-key"></i> Reset Password ke Default (P@ssw0rd123#)
+                            </label>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="swal-role" class="form-label">
@@ -579,21 +573,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 </form>
             `,
             focusConfirm: false,
-            didOpen: () => {
-                document.getElementById('swal-password').addEventListener('input', function() {
-                    validatePassword(this.value, 'edit');
-                });
-            },
             preConfirm: () => {
                 const name = document.getElementById('swal-name').value;
                 const email = document.getElementById('swal-email').value;
-                const password = document.getElementById('swal-password').value;
+                const resetPassword = document.getElementById('reset-password').checked;
                 const role_id = document.getElementById('swal-role').value;
                 if (!name || !email || !role_id) {
-                    Swal.showValidationMessage('Semua field wajib diisi kecuali password');
+                    Swal.showValidationMessage('Semua field wajib diisi');
                     return false;
                 }
-                return { name, email, password, role_id };
+                return { name, email, password: resetPassword ? 'P@ssw0rd123#' : '', role_id };
             },
             showCancelButton: true,
             confirmButtonText: 'Simpan',

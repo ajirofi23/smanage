@@ -162,6 +162,10 @@
             background-color: var(--navbar-bg);
             border-bottom: 1px solid var(--navbar-border-color);
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            z-index: 1060;
+        }
+        .dropdown-menu {
+            z-index: 1070;
         }
         .profile-dropdown a strong { color: var(--text-color-strong); }
         .navbar-brand-logo { font-weight: bold; color: #0d6efd; }
