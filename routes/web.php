@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/panel/manage/safetyriding', [PanelController::class, 'safetyRiding'])
     ->middleware(['auth', 'userAkses:administrator'])
     ->name('safetyriding.index');
-    
+
 // Perilaku Tidak Aman
 Route::middleware(['auth', 'userAkses:administrator'])
     ->prefix('panel/manage/perilakutidakaman')
@@ -69,11 +69,20 @@ Route::middleware(['auth', 'userAkses:administrator'])
         Route::delete('/delete/{id}', [PanelController::class, 'deletePotensiBahaya']);
     });
 
+// === Add User ===
+Route::middleware(['auth', 'userAkses:administrator'])
+    ->prefix('panel/manage/add-user')
+    ->group(function () {
+        Route::get('/', [PanelController::class, 'addUser'])->name('add-user.index');
+        Route::get('/data', [PanelController::class, 'getUsers']);
+        Route::post('/', [PanelController::class, 'storeUser']);
+        Route::put('/{id}', [PanelController::class, 'updateUser']);
+        Route::delete('/{id}', [PanelController::class, 'deleteUser']);
+    });
+
 
     Route::get('/panel/manager', [PanelController::class, 'manager'])->middleware('userAkses:manager');
     Route::get('/panel/supervisor', [PanelController::class, 'supervisor'])->middleware('userAkses:supervisor');
     Route::get('/panel/employee', [PanelController::class, 'employee'])->middleware('userAkses:employee');
     Route::get('/logout', [SessionController::class, 'logout']);
 });
-
- 

@@ -2,6 +2,7 @@
 
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <style>
     .main-content main {
         padding: 20px !important;
@@ -114,6 +115,7 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('potensiForm');
@@ -150,9 +152,23 @@ document.addEventListener('DOMContentLoaded', function () {
             body: formData
         });
         const result = await res.json();
-        alert(result.message);
-        form.reset();
-        loadData();
+        if (result.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: result.message,
+                timer: 2000,
+                showConfirmButton: false
+            });
+            form.reset();
+            loadData();
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: result.message
+            });
+        }
     });
 
     // Tampilkan modal edit
@@ -176,21 +192,61 @@ document.addEventListener('DOMContentLoaded', function () {
             body: formData
         });
         const result = await res.json();
-        alert(result.message);
-        editModal.hide();
-        loadData();
+        if (result.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: result.message,
+                timer: 2000,
+                showConfirmButton: false
+            });
+            editModal.hide();
+            loadData();
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: result.message
+            });
+        }
     });
 
     // Hapus data
     window.deleteData = async function (id) {
-        if (!confirm('Yakin ingin menghapus data ini?')) return;
-        const res = await fetch(`/panel/manage/potensibahaya/delete/${id}`, {
-            method: 'DELETE',
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+        const result = await Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: 'Data yang dihapus tidak dapat dikembalikan!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
         });
-        const result = await res.json();
-        alert(result.message);
-        loadData();
+
+        if (result.isConfirmed) {
+            const res = await fetch(`/panel/manage/potensibahaya/delete/${id}`, {
+                method: 'DELETE',
+                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+            });
+            const data = await res.json();
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Terhapus!',
+                    text: data.message,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                loadData();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: data.message
+                });
+            }
+        }
     };
 
     loadData();

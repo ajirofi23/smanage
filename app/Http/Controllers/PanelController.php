@@ -248,4 +248,102 @@ public function deletePotensiBahaya($id)
     return response()->json(['success' => true, 'message' => 'Data berhasil dihapus!']);
 }
 
+    // ================== ADD USER ==================
+    public function addUser()
+    {
+        return view('panel.manage.add-user');
+    }
+
+    public function storeUser(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/',
+                'role_id' => 'required|integer|between:1,4',
+            ]);
+
+            DB::table('users')->insert([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'role_id' => $request->role_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User berhasil ditambahkan!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getUsers()
+    {
+        $users = DB::table('users')
+            ->join('roles', 'users.role_id', '=', 'roles.id')
+            ->select('users.id', 'users.name', 'users.email', 'users.role_id', 'roles.name as role_name')
+            ->get();
+        return response()->json($users);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'role_id' => 'required|integer|between:1,4',
+                'password' => 'nullable|string|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/',
+            ]);
+
+            $updateData = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'role_id' => $request->role_id,
+                'updated_at' => now(),
+            ];
+
+            // Only update password if provided
+            if ($request->filled('password')) {
+                $updateData['password'] = bcrypt($request->password);
+            }
+
+            DB::table('users')->where('id', $id)->update($updateData);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User berhasil diperbarui!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function deleteUser($id)
+    {
+        try {
+            DB::table('users')->where('id', $id)->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'User berhasil dihapus!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
 }

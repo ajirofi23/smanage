@@ -2,6 +2,7 @@
 <html lang="id" data-bs-theme="light"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SHE Management Dashboard</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -224,6 +225,17 @@
                     <li><a class="nav-link {{ request()->is('panel/manage/perilakutidakaman') ? 'active' : '' }}" href="{{ url('/panel/manage/perilakutidakaman') }}"><i class="bi bi-person-walking"></i> Perilaku Tidak Aman</a></li>
                     <li><a class="nav-link {{ request()->is('panel/manage/kondisitidakaman') ? 'active' : '' }}" href="{{ url('/panel/manage/kondisitidakaman') }}"><i class="bi bi-bicycle"></i> Kondisi Tidak Aman</a></li>
                     <li><a class="nav-link {{ request()->is('panel/manage/potensibahaya') ? 'active' : '' }}" href="{{ url('/panel/manage/potensibahaya') }}"><i class="bi bi-bicycle"></i> Potensi Bahaya </a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#management-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="management-submenu">
+                    <i class="bi bi-people"></i>
+                    <span>Management User</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <ul class="collapse list-unstyled sub-menu" id="management-submenu">
+                    <li><a class="nav-link {{ request()->is('panel/manage/add-user') ? 'active' : '' }}" href="{{ url('/panel/manage/add-user') }}"><i class="bi bi-person-plus"></i> Tambah User</a></li>
                 </ul>
             </li>
         </ul>

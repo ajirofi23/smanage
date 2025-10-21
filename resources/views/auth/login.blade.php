@@ -337,7 +337,7 @@
             <label for="password">Password</label>
             <div class="input-wrapper">
               <i class="fas fa-lock input-icon"></i>
-              <input type="password" id="password" name="password" placeholder="Masukkan Password Anda" required autocomplete="current-password">
+              <input type="password" id="password" name="password" placeholder="Masukkan Password" required autocomplete="current-password">
               <span class="password-toggle" id="pwToggle" title="Lihat password"><i class="fas fa-eye"></i></span>
             </div>
           </div>
