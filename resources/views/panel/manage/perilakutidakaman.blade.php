@@ -8,12 +8,11 @@
 <style>
     .main-content main {
         padding: 20px !important;
-        background-color: #f8f9fa;
         min-height: calc(100vh - 72px);
     }
 
     .page-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #764ba2 100%);
         color: white;
         padding: 25px;
         border-radius: 10px;
@@ -22,15 +21,48 @@
     }
 
     .form-card, .table-card {
-        background: white;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border-color);
         border-radius: 10px;
         padding: 25px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.08);
         margin-bottom: 25px;
+        color: var(--text-color);
+    }
+
+    .form-card h5, .table-card h5 {
+        color: var(--text-color-strong);
+    }
+
+    .form-label {
+        color: var(--text-color);
+    }
+
+    .table {
+        background-color: var(--table-bg);
+        color: var(--text-color);
+    }
+
+    .table thead {
+        background-color: var(--table-header-bg);
+        color: var(--table-header-color);
+    }
+
+    .table tbody tr {
+        background-color: var(--table-bg);
+        color: var(--text-color);
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(0,0,0,0.05);
+    }
+
+    .badge {
+        color: var(--text-color);
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-color: #007bff !important;
         border: none;
         padding: 10px 25px;
         border-radius: 6px;
@@ -70,20 +102,31 @@
 
     <!-- Table Data -->
     <div class="table-card">
-        <h5><i class="fa-solid fa-table me-2"></i>Data Perilaku Tidak Aman</h5>
+        <div class="card-header">
+            <h5><i class="fa-solid fa-table"></i> Data Perilaku Tidak Aman</h5>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Cari nama perilaku...">
+        </div>
+
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-bordered table-striped" id="perilakuTable">
                 <thead>
                     <tr>
-                        <th width="10%">No</th>
+                        <th width="10%">#</th>
                         <th>Nama Perilaku</th>
                         <th width="15%">Status</th>
                         <th width="15%">Aksi</th>
                     </tr>
                 </thead>
-                <tbody id="dataTable"></tbody>
+                <tbody></tbody>
             </table>
         </div>
+
+        <nav>
+            <ul class="pagination" id="pagination"></ul>
+        </nav>
     </div>
 </div>
 
@@ -123,28 +166,73 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('perilakuForm');
     const editForm = document.getElementById('editForm');
-    const tbody = document.getElementById('dataTable');
+    const tableBody = document.querySelector('#perilakuTable tbody');
+    const searchInput = document.getElementById('searchInput');
+    const pagination = document.getElementById('pagination');
     const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+
+    let perilakuData = [];
+    let currentPage = 1;
+    const rowsPerPage = 10;
 
     // 🔹 Load data dari server
     async function loadData() {
         const res = await fetch('/panel/manage/perilakutidakaman/data');
-        const data = await res.json();
-        tbody.innerHTML = '';
-
-        data.forEach((item, index) => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${item.nama_perilaku}</td>
-                    <td>${item.status ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-secondary">Nonaktif</span>'}</td>
-                    <td>
-                        <button class="btn btn-edit btn-sm" onclick="editData(${item.id})"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-delete btn-sm" onclick="deleteData(${item.id})"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>`;
-        });
+        perilakuData = await res.json();
+        renderTable();
     }
+
+    // 🔹 Render tabel + pagination
+    function renderTable() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredData = perilakuData.filter(item =>
+            item.nama_perilaku.toLowerCase().includes(searchTerm)
+        );
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const paginatedData = filteredData.slice(start, start + rowsPerPage);
+
+        tableBody.innerHTML = paginatedData.map((item, i) => `
+            <tr>
+                <td>${start + i + 1}</td>
+                <td>${item.nama_perilaku}</td>
+                <td>${item.status ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-secondary">Nonaktif</span>'}</td>
+                <td>
+                    <button class="btn btn-edit btn-sm" onclick="editData(${item.id})"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn btn-delete btn-sm" onclick="deleteData(${item.id})"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+
+        renderPagination(filteredData.length);
+    }
+
+    // 🔹 Pagination control
+    function renderPagination(totalRows) {
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        pagination.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.classList.add('page-item');
+            if (i === currentPage) li.classList.add('active');
+
+            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            li.addEventListener('click', e => {
+                e.preventDefault();
+                currentPage = i;
+                renderTable();
+            });
+
+            pagination.appendChild(li);
+        }
+    }
+
+    // 🔹 Real-time search
+    searchInput.addEventListener('input', () => {
+        currentPage = 1;
+        renderTable();
+    });
 
     // 🔹 Tambah data
     form.addEventListener('submit', async function (e) {

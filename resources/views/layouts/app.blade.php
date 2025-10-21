@@ -30,6 +30,14 @@
             --sidebar-submenu-bullet-color: #6c757d;
             --sidebar-hr-color: #e9ecef;
             --text-color-strong: #212529;
+            --card-bg: #ffffff;
+            --card-border-color: #dee2e6;
+            --text-color: #212529;
+            --text-muted: #6c757d;
+            --table-bg: #ffffff;
+            --table-border-color: #dee2e6;
+            --table-header-bg: #f8f9fa;
+            --table-header-color: #212529;
         }
 
         html[data-bs-theme="dark"] {
@@ -50,6 +58,14 @@
             --sidebar-submenu-bullet-color: #64748b;
             --sidebar-hr-color: rgba(255, 255, 255, 0.1);
             --text-color-strong: #ffffff;
+            --card-bg: #1e293b;
+            --card-border-color: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --text-muted: #cbd5e1;
+            --table-bg: #1e293b;
+            --table-border-color: rgba(255, 255, 255, 0.1);
+            --table-header-bg: #374151;
+            --table-header-color: #ffffff;
         }
 
         /* === GLOBAL STYLES === */
@@ -148,6 +164,7 @@
         .sidebar-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1040; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out, visibility 0.3s; }
         .sidebar-backdrop.show { opacity: 1; visibility: visible; }
         .main-content { margin-left: 260px; padding: 0; transition: all 0.3s; }
+        .main-content main { background-color: var(--body-bg); min-height: calc(100vh - 72px); }
 
         /* Responsive */
         @media (max-width: 991.98px) {
@@ -331,17 +348,23 @@
             const getStoredTheme = () => localStorage.getItem('theme');
             const setStoredTheme = theme => localStorage.setItem('theme', theme);
 
+            const getTimeBasedTheme = () => {
+                const now = new Date();
+                const hour = now.getHours();
+                return (hour >= 18 || hour < 6) ? 'dark' : 'light';
+            };
+
             const getPreferredTheme = () => {
                 const storedTheme = getStoredTheme();
                 if (storedTheme) {
                     return storedTheme;
                 }
-                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                return getTimeBasedTheme();
             };
 
             const setTheme = theme => {
-                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                if (theme === 'auto') {
+                    document.documentElement.setAttribute('data-bs-theme', getTimeBasedTheme());
                 } else {
                     document.documentElement.setAttribute('data-bs-theme', theme);
                 }
@@ -394,6 +417,14 @@
                     showActiveTheme(theme, true);
                 });
             });
+
+            // Auto-switch theme every minute if 'auto' is selected
+            setInterval(() => {
+                const storedTheme = getStoredTheme();
+                if (storedTheme === 'auto') {
+                    setTheme('auto');
+                }
+            }, 60000);
         });
     </script>
 </body>

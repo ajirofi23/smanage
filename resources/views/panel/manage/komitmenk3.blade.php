@@ -7,12 +7,12 @@
 <style>
     .main-content main {
         padding: 20px !important;
-        background-color: #f8f9fa;
+        background-color: var(--bg-color);
         min-height: calc(100vh - 72px);
     }
 
     .page-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #764ba2 100%);
         color: white;
         padding: 25px;
         border-radius: 10px;
@@ -35,34 +35,36 @@
 
     /* Form Card */
     .form-card {
-        background: white;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border-color);
         border-radius: 10px;
         padding: 25px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.08);
         margin-bottom: 25px;
+        color: var(--text-color);
     }
 
     .form-card h5 {
-        color: #333;
+        color: var(--text-color-strong);
         font-weight: 600;
         margin-bottom: 20px;
         padding-bottom: 10px;
-        border-bottom: 2px solid #667eea;
+        border-bottom: 2px solid var(--primary-blue);
     }
 
     .form-label {
         font-weight: 500;
-        color: #495057;
+        color: var(--text-color);
         margin-bottom: 8px;
     }
 
     .form-check-input:checked {
-        background-color: #667eea;
-        border-color: #667eea;
+        background-color: var(--primary-blue);
+        border-color: var(--primary-blue);
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #764ba2 100%);
         border: none;
         padding: 10px 25px;
         border-radius: 6px;
@@ -72,9 +74,9 @@
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     }
-    
+
     .btn-primary:disabled {
         background: #ced4da; /* Warna abu-abu saat nonaktif */
         cursor: not-allowed;
@@ -85,6 +87,7 @@
     .commitment-list {
         list-style-position: inside;
         padding-left: 0;
+        color: var(--text-color);
     }
 
     .commitment-list li {

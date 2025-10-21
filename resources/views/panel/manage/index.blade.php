@@ -36,8 +36,29 @@
         font-size: 1em; color: #333;
     }
     .header-date i { margin-right: 10px; }
+    .modern-dropdown {
+        margin-left: 10px;
+        padding: 6px 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        font-size: 0.9em;
+        color: #333;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+    }
+    .modern-dropdown:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    }
     .header-title {
         font-size: 2em; font-weight: bold; color: #1f2937;
+    }
+    .header-title .modern-dropdown {
+        font-weight: normal;
+        font-size: 0.9em;
     }
     .header-title .highlight {
         background-color: #e65100; color: #ffffff; padding: 2px 10px;
@@ -132,6 +153,29 @@
             <div class="header-date">
                 <i class="fa-solid fa-calendar-days"></i>
                 <span id="current-date"></span>
+                <select class="modern-dropdown" id="section-select">
+                    <option value="all">All</option>
+                    <option value="IT">IT</option>
+                    <option value="HR">HR</option>
+                    <option value="GA">GA</option>
+                    <option value="SHE">SHE</option>
+                </select>
+                <select class="modern-dropdown" id="departemen-select">
+                    <option value="all">All</option>
+                    <option value="IT">IT</option>
+                    <option value="HR/GA">HR/GA</option>
+                    <option value="SHE">SHE</option>
+                </select>
+                <select class="modern-dropdown" id="quarter-select">
+                    <option value="Q1">Q1</option>
+                    <option value="Q2">Q2</option>
+                </select>
+                <select class="modern-dropdown" id="year-select">
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
             </div>
             <div class="header-title">
                 <span class="highlight">AICC</span>SHE

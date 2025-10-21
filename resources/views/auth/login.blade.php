@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
   <style>
-    /* ===================== ANIMASI MASUK/KELUAR ===================== */
+    /* ========== ANIMASI MASUK/KELUAR ========== */
     body {
       opacity: 0;
       transform: translateY(10px);
@@ -19,10 +19,9 @@
     body.fade-out { opacity: 0; transform: translateY(-10px); }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html, body { height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-    /* ===================== LAYOUT DESKTOP ===================== */
+    /* ========== DESKTOP LAYOUT ========== */
     @media (min-width: 768px) {
       .container {
         display: flex;
@@ -32,7 +31,6 @@
 
       .motto-section {
         flex: 1;
-        min-height: 100vh;
         background: linear-gradient(135deg, #1a365d 0%, #2d4a6f 50%, #364e68 100%);
         display: flex;
         align-items: center;
@@ -123,7 +121,7 @@
       }
     }
 
-    /* ===================== LAYOUT MOBILE ===================== */
+    /* ========== MOBILE LAYOUT ========== */
     @media (max-width: 767px) {
       body {
         background: linear-gradient(135deg, #1a365d 0%, #364e68 100%);
@@ -136,7 +134,6 @@
         align-items: center;
         justify-content: center;
         padding: 1rem;
-        position: relative;
       }
 
       .motto-section { display: none !important; }
@@ -163,7 +160,7 @@
       }
     }
 
-    /* ===================== ELEMEN UMUM ===================== */
+    /* ========== FORM STYLING ========== */
     h2 {
       font-size: 1.1rem;
       color: #333;
@@ -185,8 +182,6 @@
       font-size: 0.9rem;
     }
 
-    .alert-modern .icon { font-size: 1.1rem; margin-top: 2px; }
-
     .input-group { margin-bottom: 1.2rem; }
     .input-group label {
       display: block;
@@ -196,7 +191,13 @@
       color: #333;
     }
 
-    .input-wrapper { position: relative; }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
     .input-icon {
       position: absolute;
       left: 14px;
@@ -206,9 +207,11 @@
       font-size: 1rem;
     }
 
-    input[type="email"], input[type="password"] {
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
       width: 100%;
-      padding: 0.75rem 14px 0.75rem 42px;
+      padding: 0.75rem 42px 0.75rem 42px;
       border-radius: 12px;
       border: 2px solid #e5e7eb;
       background: #fafafa;
@@ -221,21 +224,114 @@
       border-color: #ff6b35;
       background: #fff;
       box-shadow: 0 0 0 4px rgba(255,107,53,0.1);
-      transform: translateY(-1px);
     }
 
     .password-toggle {
       position: absolute;
-      right: 12px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      font-size: 1rem;
       color: #9ca3af;
-      transition: color 0.2s;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
     }
 
-    .password-toggle:hover { color: #ff6b35; }
+    .password-toggle:hover {
+      background: rgba(255,107,53,0.1);
+      color: #ff6b35;
+    }
+
+    .password-toggle.visible {
+      background: rgba(255,107,53,0.15);
+      color: #ff6b35;
+    }
+
+    .character {
+      width: 20px;
+      height: 20px;
+    }
+
+    .eyes-normal, .eyes-peek, .eyes-blink, .mouth-smile, .mouth-tongue, .eyebrows, .cheeks {
+      transition: opacity 0.3s ease;
+    }
+
+    /* Default state: eyes normal, mouth smile, eyebrows normal, cheeks visible */
+    .password-toggle .eyes-normal,
+    .password-toggle .mouth-smile,
+    .password-toggle .eyebrows,
+    .password-toggle .cheeks {
+      opacity: 1;
+    }
+
+    .password-toggle .eyes-peek,
+    .password-toggle .eyes-blink,
+    .password-toggle .mouth-tongue {
+      opacity: 0;
+    }
+
+    /* Visible password: eyes peek, mouth smile, eyebrows raised, cheeks blush more */
+    .password-toggle.visible .eyes-normal {
+      opacity: 0;
+    }
+
+    .password-toggle.visible .eyes-peek {
+      opacity: 1;
+    }
+
+    .password-toggle.visible .mouth-smile {
+      opacity: 1;
+    }
+
+    .password-toggle.visible .eyebrows {
+      opacity: 0.7;
+      transform: translateY(-0.5px);
+    }
+
+    .password-toggle.visible .cheeks {
+      opacity: 0.6;
+    }
+
+    /* Error state: eyes blink, mouth tongue, eyebrows furrowed, cheeks red */
+    .password-toggle.error .eyes-normal,
+    .password-toggle.error .eyes-peek,
+    .password-toggle.error .mouth-smile,
+    .password-toggle.error .eyebrows {
+      opacity: 0;
+    }
+
+    .password-toggle.error .eyes-blink,
+    .password-toggle.error .mouth-tongue {
+      opacity: 1;
+    }
+
+    .password-toggle.error .cheeks {
+      opacity: 0.8;
+      fill: #ff6b35;
+    }
+
+    /* Error + visible: same as error */
+    .password-toggle.error.visible .eyes-normal,
+    .password-toggle.error.visible .eyes-peek,
+    .password-toggle.error.visible .mouth-smile,
+    .password-toggle.error.visible .eyebrows {
+      opacity: 0;
+    }
+
+    .password-toggle.error.visible .eyes-blink,
+    .password-toggle.error.visible .mouth-tongue {
+      opacity: 1;
+    }
+
+    .password-toggle.error.visible .cheeks {
+      opacity: 0.8;
+      fill: #ff6b35;
+    }
 
     .submit-button {
       width: 100%;
@@ -249,8 +345,6 @@
       cursor: pointer;
       box-shadow: 0 8px 25px rgba(255,107,53,0.3);
       transition: all 0.3s ease;
-      overflow: hidden;
-      position: relative;
     }
 
     .submit-button:hover {
@@ -273,7 +367,6 @@
 
     .extra-links a:hover { color: #ff8c61; }
 
-    /* Efek animasi tambahan */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -283,8 +376,6 @@
       from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
     }
-
-    
   </style>
 </head>
 
@@ -338,7 +429,60 @@
             <div class="input-wrapper">
               <i class="fas fa-lock input-icon"></i>
               <input type="password" id="password" name="password" placeholder="Masukkan Password" required autocomplete="current-password">
-              <span class="password-toggle" id="pwToggle" title="Lihat password"><i class="fas fa-eye"></i></span>
+              <span class="password-toggle @if ($errors->any()) error @endif" id="pwToggle" title="Lihat password">
+                <svg class="character" viewBox="0 0 24 24">
+                  <!-- Face outline -->
+                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5" />
+
+                  <!-- Eyebrows -->
+                  <g class="eyebrows">
+                    <path d="M6 8 Q8 7 10 8" stroke="currentColor" stroke-width="1" fill="none" stroke-linecap="round" />
+                    <path d="M14 8 Q16 7 18 8" stroke="currentColor" stroke-width="1" fill="none" stroke-linecap="round" />
+                  </g>
+
+                  <!-- Eyes normal -->
+                  <g class="eyes-normal">
+                    <circle cx="8" cy="10" r="2.5" fill="currentColor" />
+                    <circle cx="16" cy="10" r="2.5" fill="currentColor" />
+                    <!-- Eye highlights -->
+                    <circle cx="7.5" cy="9" r="0.5" fill="white" opacity="0.8" />
+                    <circle cx="15.5" cy="9" r="0.5" fill="white" opacity="0.8" />
+                  </g>
+
+                  <!-- Eyes peek -->
+                  <g class="eyes-peek">
+                    <ellipse cx="8" cy="10" rx="2.5" ry="0.8" fill="currentColor" />
+                    <ellipse cx="16" cy="10" rx="2.5" ry="0.8" fill="currentColor" />
+                  </g>
+
+                  <!-- Eyes blink -->
+                  <g class="eyes-blink">
+                    <ellipse cx="8" cy="10" rx="2.5" ry="0.2" fill="currentColor" />
+                    <ellipse cx="16" cy="10" rx="2.5" ry="0.2" fill="currentColor" />
+                  </g>
+
+                  <!-- Nose -->
+                  <ellipse cx="12" cy="12" rx="0.5" ry="0.8" fill="currentColor" opacity="0.6" />
+
+                  <!-- Mouth smile -->
+                  <g class="mouth-smile">
+                    <path d="M8 15 Q12 17.5 16 15" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                  </g>
+
+                  <!-- Mouth tongue -->
+                  <g class="mouth-tongue">
+                    <path d="M8 15 Q12 17.5 16 15" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                    <ellipse cx="12" cy="16.5" rx="1.2" ry="2" fill="#ff6b35" />
+                    <ellipse cx="12" cy="17" rx="0.8" ry="1.2" fill="#ffb08a" />
+                  </g>
+
+                  <!-- Cheeks (blush) -->
+                  <g class="cheeks">
+                    <circle cx="6" cy="13" r="1.5" fill="#ffb08a" opacity="0.4" />
+                    <circle cx="18" cy="13" r="1.5" fill="#ffb08a" opacity="0.4" />
+                  </g>
+                </svg>
+              </span>
             </div>
           </div>
 
@@ -353,24 +497,31 @@
   </div>
 
   <script>
-    // Password toggle
+    // Toggle Password Visibility
     document.getElementById('pwToggle').addEventListener('click', function(e) {
       e.preventDefault();
       const pw = document.getElementById('password');
       if (pw.type === 'password') {
         pw.type = 'text';
-        this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        this.classList.add('visible');
+        // Remove error state when toggling to allow normal animation
+        this.classList.remove('error');
       } else {
         pw.type = 'password';
-        this.innerHTML = '<i class="fas fa-eye"></i>';
+        this.classList.remove('visible');
+        // Re-add error state if there were errors (for persistent error display)
+        if (document.querySelector('.alert-modern')) {
+          this.classList.add('error');
+        }
       }
     });
 
-    // Animasi transisi halaman
+    // Page Load Animation
     window.addEventListener("load", () => {
       document.body.classList.add("loaded");
     });
 
+    // Smooth Page Transition
     document.querySelectorAll("a").forEach(link => {
       if (link.getAttribute("target") === "_blank" || link.href.includes('#')) return;
       link.addEventListener("click", e => {

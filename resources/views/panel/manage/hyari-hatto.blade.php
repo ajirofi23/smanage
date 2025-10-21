@@ -11,65 +11,157 @@
         --primary-blue-darker: #0056b3;
     }
 
-    .main-content main { padding: 20px !important; background-color: #f8f9fa; min-height: calc(100vh - 72px); }
-    
+    .main-content main {
+        padding: 20px !important;
+        background-color: var(--bg-color);
+        min-height: calc(100vh - 72px);
+    }
+
     /* Updated Page Header */
-    .page-header { 
-        background-color: var(--primary-blue); 
-        color: white; 
-        padding: 25px; 
-        border-radius: 10px; 
-        margin-bottom: 25px; 
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+    .page-header {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .page-header h2 { margin: 0; font-weight: 600; display: flex; align-items: center; gap: 12px; }
     .page-header p { margin: 5px 0 0 0; opacity: 0.9; }
 
-    .form-card { background: white; border-radius: 10px; padding: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); margin-bottom: 25px; }
-    .form-card h5 { color: #333; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 10px; }
-    
-    .form-label { font-weight: 500; color: #495057; margin-bottom: 8px; }
-    .form-control, .form-select { border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; transition: all 0.3s; }
-    .form-control:focus, .form-select:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
-    
+    .form-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border-color);
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
+        color: var(--text-color);
+    }
+    .form-card h5 {
+        color: var(--text-color-strong);
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--primary-blue);
+        padding-bottom: 10px;
+    }
+
+    .form-card h6 {
+        color: var(--text-color-strong);
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .form-check-label {
+        color: var(--text-color);
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: var(--text-color);
+        margin-bottom: 8px;
+    }
+    .form-control, .form-select {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px 12px;
+        transition: all 0.3s;
+        background-color: var(--input-bg);
+        color: var(--text-color);
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
     /* Updated Button */
-    .btn-primary { 
-        background-color: var(--primary-blue); 
-        border: none; 
-        padding: 10px 25px; 
-        border-radius: 6px; 
-        font-weight: 500; 
-        transition: all 0.3s; 
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #764ba2 100%);
+        border: none;
+        padding: 10px 25px;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: transform 0.2s;
     }
-    .btn-primary:hover { 
-        background-color: var(--primary-blue-darker);
-        transform: translateY(-2px); 
-        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); 
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     }
-    
-    .table-card { background: white; border-radius: 10px; padding: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-    .table-card h5 { color: #333; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 10px; }
-    
+
+    .table-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border-color);
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        color: var(--text-color);
+    }
+    .table-card h5 {
+        color: var(--text-color-strong);
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--primary-blue);
+        padding-bottom: 10px;
+    }
+
     /* Updated Table Header */
-    .table thead { 
-        background-color: var(--primary-blue); 
-        color: white; 
+    .table {
+        background-color: var(--table-bg);
+        color: var(--text-color);
     }
-    .table thead th { border: none; font-weight: 500; padding: 12px; vertical-align: middle; }
-    .table tbody td { vertical-align: middle; padding: 12px; }
-    .table tbody tr:hover { background-color: #f8f9fa; }
-    
+    .table thead {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #764ba2 100%);
+        color: white;
+    }
+    .table thead th {
+        border: none;
+        font-weight: 500;
+        padding: 12px;
+        vertical-align: middle;
+    }
+    .table tbody td {
+        vertical-align: middle;
+        padding: 12px;
+        background-color: var(--table-bg);
+        color: var(--text-color);
+    }
+    .table tbody tr:hover {
+        background-color: rgba(0,0,0,0.05);
+    }
+
     .btn-action { padding: 6px 12px; border-radius: 6px; font-size: 0.875rem; margin: 0 2px; transition: all 0.2s; }
     .btn-edit { background-color: #ffc107; color: #000; border: none; }
+    .btn-edit:hover { background-color: #ffb300; transform: translateY(-2px); }
     .btn-delete { background-color: #dc3545; color: white; border: none; }
+    .btn-delete:hover { background-color: #c82333; transform: translateY(-2px); }
     .btn-view { background-color: #17a2b8; color: white; border: none; }
-    
+    .btn-view:hover { background-color: #138496; transform: translateY(-2px); }
+
     .image-preview { max-width: 80px; height: 60px; object-fit: cover; border-radius: 6px; cursor: pointer; transition: transform 0.2s; }
     .image-preview:hover { transform: scale(1.1); }
-    
-    .custom-file-upload { border: 2px dashed #ddd; border-radius: 6px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s; }
-    .custom-file-upload:hover { border-color: var(--primary-blue); background-color: #f8f9fa; }
-    .custom-file-upload i { font-size: 2rem; color: var(--primary-blue); margin-bottom: 10px; }
+
+    .custom-file-upload {
+        border: 2px dashed #ddd;
+        border-radius: 6px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+    }
+    .custom-file-upload:hover {
+        border-color: var(--primary-blue);
+        background-color: rgba(0,0,0,0.05);
+    }
+    .custom-file-upload i {
+        font-size: 2rem;
+        color: var(--primary-blue);
+        margin-bottom: 10px;
+    }
+    .custom-file-upload p, .custom-file-upload small {
+        color: var(--text-color);
+    }
 </style>
 @endpush
 

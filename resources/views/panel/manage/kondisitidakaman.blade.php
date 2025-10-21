@@ -8,26 +8,36 @@
 <style>
     .main-content main {
         padding: 20px !important;
-        background-color: #f8f9fa;
         min-height: calc(100vh - 72px);
     }
 
     /* Header simple biru */
     .page-header {
-        background-color: #007bff;
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #764ba2 100%);
         color: white;
         padding: 25px;
         border-radius: 8px;
         margin-bottom: 25px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     /* Kartu dan tombol */
     .form-card, .table-card {
-        background: white;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border-color);
         border-radius: 8px;
         padding: 25px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         margin-bottom: 25px;
+        color: var(--text-color);
+    }
+
+    .form-card h5, .table-card h5 {
+        color: var(--text-color-strong);
+    }
+
+    .form-label {
+        color: var(--text-color);
     }
 
     .btn-primary {
@@ -46,6 +56,29 @@
     .btn-delete { background-color: #dc3545; color: white; }
     .btn-edit:hover { background-color: #ffb300; transform: translateY(-2px); }
     .btn-delete:hover { background-color: #c82333; transform: translateY(-2px); }
+
+    .table {
+        background-color: var(--table-bg);
+        color: var(--text-color);
+    }
+
+    .table thead {
+        background-color: var(--table-header-bg);
+        color: var(--table-header-color);
+    }
+
+    .table tbody tr {
+        background-color: var(--table-bg);
+        color: var(--text-color);
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(0,0,0,0.05);
+    }
+
+    .badge {
+        color: var(--text-color);
+    }
 </style>
 @endpush
 

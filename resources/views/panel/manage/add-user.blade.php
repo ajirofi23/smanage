@@ -8,12 +8,12 @@
 <style>
     .main-content main {
         padding: 20px !important;
-        background-color: #f8f9fa;
+        background-color: var(--bg-color);
         min-height: calc(100vh - 72px);
     }
 
     .page-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary-blue);
         color: white;
         padding: 30px;
         border-radius: 15px;
@@ -32,16 +32,16 @@
     }
 
     .form-card {
-        background: white;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border-color);
         border-radius: 15px;
         padding: 30px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         margin-bottom: 30px;
-        border: none;
     }
 
     .form-card .card-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary-blue);
         color: white;
         border-radius: 15px 15px 0 0 !important;
         padding: 20px 30px;
@@ -63,7 +63,7 @@
 
     .form-label {
         font-weight: 600;
-        color: #333;
+        color: var(--text-color-strong);
         margin-bottom: 8px;
         display: flex;
         align-items: center;
@@ -76,21 +76,24 @@
         padding: 12px 16px;
         font-size: 14px;
         transition: all 0.3s ease;
+        background-color: var(--input-bg);
+        color: var(--text-color);
     }
 
     .form-control:focus, .form-select:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         outline: none;
     }
 
     .password-requirements {
         margin-top: 12px;
         font-size: 0.85em;
-        background: #f8f9fa;
+        background: var(--card-bg);
         padding: 12px;
         border-radius: 8px;
-        border: 1px solid #e9ecef;
+        border: 1px solid var(--card-border-color);
+        color: var(--text-color);
     }
 
     .password-requirements li {
@@ -120,7 +123,7 @@
     }
 
     .btn-submit {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary-blue);
         border: none;
         padding: 12px 30px;
         border-radius: 10px;
@@ -135,21 +138,21 @@
 
     .btn-submit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
         color: white;
     }
 
     .table-card {
-        background: white;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border-color);
         border-radius: 15px;
         padding: 30px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         margin-bottom: 30px;
-        border: none;
     }
 
     .table-card .card-header {
-        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #0056b3 100%);
         color: white;
         border-radius: 15px 15px 0 0 !important;
         padding: 20px 30px;
@@ -166,7 +169,8 @@
     }
 
     .search-container {
-        background: #f8f9fa;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border-color);
         padding: 20px;
         border-radius: 10px;
         margin-bottom: 20px;
@@ -179,11 +183,13 @@
         font-size: 14px;
         width: 100%;
         max-width: 400px;
+        background-color: var(--input-bg);
+        color: var(--text-color);
     }
 
     .search-input:focus {
-        border-color: #28a745;
-        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         outline: none;
     }
 
@@ -191,10 +197,12 @@
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        background-color: var(--table-bg);
+        color: var(--text-color);
     }
 
     .table th {
-        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        background: var(--primary-blue);
         color: white;
         text-align: center;
         font-weight: 600;
@@ -207,14 +215,16 @@
         text-align: center;
         border: none;
         padding: 12px 15px;
+        background-color: var(--table-bg);
+        color: var(--text-color);
     }
 
     .table tbody tr:nth-child(even) {
-        background-color: #f8f9fa;
+        background-color: var(--table-bg);
     }
 
     .table tbody tr:hover {
-        background-color: #e9ecef;
+        background-color: rgba(0,0,0,0.05);
         transform: scale(1.01);
         transition: all 0.2s ease;
     }
@@ -262,21 +272,26 @@
         border: none;
         border-radius: 8px;
         margin: 0 2px;
-        color: #667eea;
+        color: var(--primary-blue);
         font-weight: 500;
         transition: all 0.3s ease;
     }
 
     .pagination .page-link:hover {
-        background-color: #667eea;
+        background-color: var(--primary-blue);
         color: white;
         transform: translateY(-1px);
     }
 
     .pagination .page-item.active .page-link {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary-blue);
         color: white;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    .badge.bg-primary {
+        background-color: var(--primary-blue) !important;
+        color: white;
     }
 
     @media (max-width: 768px) {
