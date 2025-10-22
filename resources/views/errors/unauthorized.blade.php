@@ -20,6 +20,7 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             text-align: center;
+            max-width: 400px;
         }
         h1 {
             font-size: 60px;
@@ -49,7 +50,35 @@
     <div class="error-container">
         <h1>403</h1>
         <p>{{ $message ?? 'Akses ditolak. Anda tidak memiliki izin.' }}</p>
-        <a href="{{ url()->previous() ?? url('/') }}">Kembali</a>
+
+        @php
+            use Illuminate\Support\Facades\Auth;
+
+            $user = Auth::user();
+            $redirectUrl = url('/'); // default
+
+            if ($user) {
+                switch (strtolower($user->role->name ?? '')) {
+                    case 'administrator':
+                        $redirectUrl = url('/panel/manage');
+                        break;
+                    case 'manager':
+                        $redirectUrl = url('/panel/manager');
+                        break;
+                    case 'employee':
+                        $redirectUrl = url('/panel/employee');
+                        break;
+                    case 'supervisor':
+                        $redirectUrl = url('/panel/supervisor');
+                        break;
+                    default:
+                        $redirectUrl = url('/');
+                        break;
+                }
+            }
+        @endphp
+
+        <a href="{{ $redirectUrl }}">Kembali</a>
     </div>
 </body>
 </html>

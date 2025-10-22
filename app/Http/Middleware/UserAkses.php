@@ -9,15 +9,30 @@ use Illuminate\Support\Facades\Auth;
 
 class UserAkses
 {
-   public function handle(Request $request, Closure $next, $role): Response
-{
-    if (Auth::check() && Auth::user()->role && Auth::user()->role->name === $role) {
-        return $next($request);
+    public function handle(Request $request, Closure $next, ...$roles): Response
+    {
+        if (!Auth::check()) {
+            return $this->unauthorizedResponse('User not authenticated');
+        }
+
+        if (!Auth::user()->role) {
+            return $this->unauthorizedResponse('User has no role assigned');
+        }
+
+        $userRole = Auth::user()->role->name;
+        
+        // Cek jika user role ada dalam list roles yang diizinkan
+        if (in_array($userRole, $roles)) {
+            return $next($request);
+        }
+
+        return $this->unauthorizedResponse();
     }
 
-    // Render ke view error unauthorized
-    return response()->view('errors.unauthorized', [
-        'message' => 'Kamu tidak memiliki akses untuk halaman ini 🚫'
-    ], 403);
-}
+    private function unauthorizedResponse()
+    {
+        return response()->view('errors.unauthorized', [
+            'message' => 'Kamu tidak memiliki akses untuk halaman ini 🚫'
+        ], 403);
+    }
 }

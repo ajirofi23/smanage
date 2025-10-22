@@ -193,96 +193,74 @@
 <body>
 
     <aside class="sidebar" id="sidebarMenu" aria-hidden="false">
-    <div class="sidebar-header">
-        <h4>
-            <i class="bi bi-shield-shaded"></i>
-            SHE Management
-        </h4>
-        <button class="btn-close position-absolute top-0 end-0 m-3 d-lg-none" id="sidebarClose" aria-label="Tutup sidebar"></button>
-    </div>
-    <ul class="nav flex-column py-3">
-        <!-- Dashboard - Semua Role -->
-        <li class="nav-item">
-            <a class="nav-link {{ request()->is('panel/manage') ? 'active' : '' }}" href="{{ url('/panel/manage') }}">
-                <i class="bi bi-house-door"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        
-        <hr>
+        <div class="sidebar-header">
+            <h4>
+                <i class="bi bi-shield-shaded"></i>
+                SHE Management
+            </h4>
+            <button class="btn-close position-absolute top-0 end-0 m-3 d-lg-none" id="sidebarClose" aria-label="Tutup sidebar"></button>
+        </div>
+        <ul class="nav flex-column py-3">
+             <li class="nav-item">
+                <a class="nav-link {{ request()->is('panel/manage') ? 'active' : '' }}" href="{{ url('/panel/manage') }}">
+                    <i class="bi bi-house-door"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            
+            <hr>
 
-        <!-- Menu Managemen Insident - Hanya untuk Supervisor -->
-        @if(auth()->check() && auth()->user()->role && in_array(auth()->user()->role->name, ['supervisor']))
-        <li class="nav-item">
-            <a class="nav-link" href="#incident-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="incident-submenu">
-                <i class="bi bi-exclamation-triangle"></i>
-                <span>Managemen Insident</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
-            <ul class="collapse list-unstyled sub-menu" id="incident-submenu">
-                <li><a class="nav-link {{ request()->is('panel/manage/hyari-hatto') ? 'active' : '' }}" href="{{ url('/panel/manage/hyari-hatto') }}"><i class="bi bi-eyeglasses"></i> Hyari Hatto</a></li>
-                <li><a class="nav-link {{ request()->is('panel/manage/laporinsiden') ? 'active' : '' }}" href="{{ url('/panel/manage/laporinsiden') }}"><i class="bi bi-file-earmark-text"></i> Pelaporan Insiden</a></li>
-                <li><a class="nav-link {{ request()->is('panel/manage/laporaccident') ? 'active' : '' }}" href="{{ url('/panel/manage/laporaccident') }}"><i class="bi bi-clipboard-x"></i> Pelaporan Accident</a></li>
-            </ul>
-        </li>
-        @endif
+            <li class="nav-item">
+                <a class="nav-link" href="#incident-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="incident-submenu">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <span>Managemen Insident</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <ul class="collapse list-unstyled sub-menu" id="incident-submenu">
+                    <li><a class="nav-link {{ request()->is('panel/manage/hyari-hatto') ? 'active' : '' }}" href="{{ url('/panel/manage/hyari-hatto') }}"><i class="bi bi-eyeglasses"></i> Hyari Hatto</a></li>
+                    <li><a class="nav-link {{ request()->is('panel/manage/laporinsiden') ? 'active' : '' }}" href="{{ url('/panel/manage/laporinsiden') }}"><i class="bi bi-file-earmark-text"></i> Pelaporan Insiden</a></li>
+                    <li><a class="nav-link {{ request()->is('panel/manage/laporaccident') ? 'active' : '' }}" href="{{ url('/panel/manage/laporaccident') }}"><i class="bi bi-clipboard-x"></i> Pelaporan Accident</a></li>
+                    <li><a class="nav-link {{ request()->is('panel/manage/komitmenk3') ? 'active' : '' }}" href="{{ url('/panel/manage/komitmenk3') }}"><i class="bi bi-hand-thumbs-up"></i> Komitmen K3</a></li>
+                </ul>
+            </li>
 
-        <!-- Menu Managemen Audit - Hanya untuk Supervisor -->
-        @if(auth()->check() && auth()->user()->role && in_array(auth()->user()->role->name, ['supervisor']))
-        <li class="nav-item">
-            <a class="nav-link" href="#audit-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="audit-submenu">
-                <i class="bi bi-clipboard2-check"></i>
-                <span>Managemen Audit</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
-            <ul class="collapse list-unstyled sub-menu" id="audit-submenu">
-                <li><a class="nav-link {{ request()->is('panel/manage/safetypatrol') ? 'active' : '' }}" href="{{ url('/panel/manage/safetypatrol') }}"><i class="bi bi-person-walking"></i> Safety Patrol</a></li>
-                <li><a class="nav-link {{ request()->is('panel/manage/safetyriding') ? 'active' : '' }}" href="{{ url('/panel/manage/safetyriding') }}"><i class="bi bi-bicycle"></i> Safety Riding</a></li>
-            </ul>
-        </li>
-        @endif
+            <li class="nav-item">
+                <a class="nav-link" href="#audit-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="audit-submenu">
+                    <i class="bi bi-clipboard2-check"></i>
+                    <span>Managemen Audit</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <ul class="collapse list-unstyled sub-menu" id="audit-submenu">
+                    <li><a class="nav-link {{ request()->is('panel/manage/safetypatrol') ? 'active' : '' }}" href="{{ url('/panel/manage/safetypatrol') }}"><i class="bi bi-person-walking"></i> Safety Patrol</a></li>
+                    <li><a class="nav-link {{ request()->is('panel/manage/safetyriding') ? 'active' : '' }}" href="{{ url('/panel/manage/safetyriding') }}"><i class="bi bi-bicycle"></i> Safety Riding</a></li>
+                </ul>
+            </li>
 
-        <!-- Menu Komitmen K3 - Untuk Supervisor & Employee -->
-        @if(auth()->check() && auth()->user()->role && in_array(auth()->user()->role->name, ['supervisor', 'employee']))
-        <li class="nav-item">
-            <a class="nav-link {{ request()->is('panel/manage/komitmenk3') ? 'active' : '' }}" href="{{ url('/panel/manage/komitmenk3') }}">
-                <i class="bi bi-hand-thumbs-up"></i>
-                <span>Komitmen K3</span>
-            </a>
-        </li>
-        @endif
+            <li class="nav-item">
+                <a class="nav-link" href="#managehyari-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="audit-submenu">
+                    <i class="bi bi-clipboard2-check"></i>
+                    <span>Data Master Hyari Hatto</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <ul class="collapse list-unstyled sub-menu" id="managehyari-submenu">
+                    <li><a class="nav-link {{ request()->is('panel/manage/perilakutidakaman') ? 'active' : '' }}" href="{{ url('/panel/manage/perilakutidakaman') }}"><i class="bi bi-person-walking"></i> Perilaku Tidak Aman</a></li>
+                    <li><a class="nav-link {{ request()->is('panel/manage/kondisitidakaman') ? 'active' : '' }}" href="{{ url('/panel/manage/kondisitidakaman') }}"><i class="bi bi-bicycle"></i> Kondisi Tidak Aman</a></li>
+                    <li><a class="nav-link {{ request()->is('panel/manage/potensibahaya') ? 'active' : '' }}" href="{{ url('/panel/manage/potensibahaya') }}"><i class="bi bi-bicycle"></i> Potensi Bahaya </a></li>
+                </ul>
+            </li>
 
-        <!-- Menu Data Master Hyari Hatto - Hanya untuk Supervisor -->
-        @if(auth()->check() && auth()->user()->role && in_array(auth()->user()->role->name, ['supervisor']))
-        <li class="nav-item">
-            <a class="nav-link" href="#managehyari-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="managehyari-submenu">
-                <i class="bi bi-database"></i>
-                <span>Data Master Hyari Hatto</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
-            <ul class="collapse list-unstyled sub-menu" id="managehyari-submenu">
-                <li><a class="nav-link {{ request()->is('panel/manage/perilakutidakaman') ? 'active' : '' }}" href="{{ url('/panel/manage/perilakutidakaman') }}"><i class="bi bi-person-x"></i> Perilaku Tidak Aman</a></li>
-                <li><a class="nav-link {{ request()->is('panel/manage/kondisitidakaman') ? 'active' : '' }}" href="{{ url('/panel/manage/kondisitidakaman') }}"><i class="bi bi-exclamation-triangle"></i> Kondisi Tidak Aman</a></li>
-                <li><a class="nav-link {{ request()->is('panel/manage/potensibahaya') ? 'active' : '' }}" href="{{ url('/panel/manage/potensibahaya') }}"><i class="bi bi-lightning-charge"></i> Potensi Bahaya</a></li>
-            </ul>
-        </li>
-        @endif
-
-        <!-- Menu Management User - Hanya untuk Admin -->
-        @if(auth()->check() && auth()->user()->role && in_array(auth()->user()->role->name, ['administrator']))
-        <li class="nav-item">
-            <a class="nav-link" href="#management-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="management-submenu">
-                <i class="bi bi-people"></i>
-                <span>Management User</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
-            <ul class="collapse list-unstyled sub-menu" id="management-submenu">
-                <li><a class="nav-link {{ request()->is('panel/manage/add-user') ? 'active' : '' }}" href="{{ url('/panel/manage/add-user') }}"><i class="bi bi-person-plus"></i> Tambah User</a></li>
-            </ul>
-        </li>
-        @endif
-    </ul>
-</aside>
+            <li class="nav-item">
+                <a class="nav-link" href="#management-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="management-submenu">
+                    <i class="bi bi-people"></i>
+                    <span>Management User</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <ul class="collapse list-unstyled sub-menu" id="management-submenu">
+                    <li><a class="nav-link {{ request()->is('panel/manage/add-user') ? 'active' : '' }}" href="{{ url('/panel/manage/add-user') }}"><i class="bi bi-person-plus"></i> Tambah User</a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
 
     <div id="sidebarBackdrop" class="sidebar-backdrop" tabindex="-1" aria-hidden="true"></div>
 
