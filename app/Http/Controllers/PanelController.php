@@ -16,23 +16,17 @@ class PanelController extends Controller
 
     public function manager()
     {
-        echo "Welcome to the panel manager!";
-        echo "<h1>" . Auth::user()->name . "</h1>";
-        echo "<a href='/logout'>Logout</a>";
+        return view('panel.manage.index');
     }
 
     public function supervisor()
     {
-        echo "Welcome to the panel spv!";
-        echo "<h1>" . Auth::user()->name . "</h1>";
-        echo "<a href='/logout'>Logout</a>";
+       return view('panel.manage.index');
     }
 
     public function employee()
     {
-        echo "Welcome to the panel employee!";
-        echo "<h1>" . Auth::user()->name . "</h1>";
-        echo "<a href='/logout'>Logout</a>";
+        return view('panel.manage.index');
     }
 
     // ================== MENU LAIN ==================
